@@ -1,0 +1,126 @@
+# ==== OS / Editor cruft ====
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
+
+# VS Code / JetBrains
+.vscode/
+.idea/
+*.iml
+
+# Vim / Emacs
+*~
+.*.swp
+.*.swo
+
+# Logs / temp
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+
+# ==== Python ====
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env/
+.venv/
+venv/
+pip-wheel-metadata/
+dist/
+build/
+.eggs/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# ==== Node.js ====
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnpm-store/
+.next/
+out/
+coverage/
+
+# ==== Java / JVM ====
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Common IDE metadata already covered above
+
+# ==== Go ====
+bin/
+*.test
+# Uncomment if you vendor deps
+# vendor/
+
+# ==== Docker / Containers ====
+# Local compose overrides & artifacts
+docker-compose.override.yml
+.docker/
+**/.dockerignore~
+
+# ==== Terraform (if used) ====
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# ==== Kubernetes (optional manifests cache) ====
+# kustomize build output or tooling cache
+.kube/
+.kustomize/
+
+# ==== CI / Scanners / Reports ====
+.jenkins/
+workspace/
+.sonar/
+.scannerwork/
+reports/
+test-results/
+artifacts/
+
+# ==== SBOMs / Security scans (optional) ====
+sbom/
+bom.json
+bom.xml
+grype.db
+syft-cache/
+
+# ==== Bundlers / Packaging ====
+*.tar
+*.tar.gz
+*.zip
+
+# ==== Secrets (DO NOT COMMIT) ====
+# Keep these ignored; store real secrets in a vault/CI and use templates.
+.env
+*.env
+*.key
+*.pem
+*.crt
+*.p12
+secrets.yaml
+secrets.json
