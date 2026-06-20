@@ -10,7 +10,7 @@
 
 Grafana is a visualization and alerting platform. It does **not store data** — it queries external data sources and renders the results.
 
-![Alt text](grafana.png)
+![Alt text](/images/Prometheus/grafana.png)
 #### Key Concepts
 
 | Concept | Description |
