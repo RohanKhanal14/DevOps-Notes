@@ -144,13 +144,14 @@ chmod +x .git/hooks/pre-commit
 
 ## 2.3 Important Git Hooks
 
-| Hook | When it Runs | Common Use |
-|---|---|---|
-| `pre-commit` | Before a commit is created | Run linting, formatting, tests |
-| `pre-push` | Before code is pushed | Run tests, security checks |
-| `commit-msg` | After commit message is written, before commit completes | Validate commit message format |
-| `post-merge` | After merge completes | Install dependencies or show reminders |
-| `pre-rebase` | Before rebase starts | Prevent unsafe rebase operations |
+| Hook         | When it Runs                                             | Common Use                             |
+| ------------ | -------------------------------------------------------- | -------------------------------------- |
+| `pre-commit` | Before a commit is created                               | Run linting, formatting, tests         |
+| `pre-push`   | Before code is pushed                                    | Run tests, security checks             |
+| `commit-msg` | After commit message is written, before commit completes | Validate commit message format         |
+| `post-merge` | After merge completes                                    | Install dependencies or show reminders |
+| `pre-rebase` | Before rebase starts                                     | Prevent unsafe rebase operations       |
+|              |                                                          |                                        |
 
 ---
 

@@ -43,7 +43,7 @@ Networking is the process of connecting computers, servers, and devices so they 
 
 In Linux administration, networking knowledge is important because most Linux systems are used as web servers, database servers, application servers, DNS servers, monitoring servers, DevOps automation servers, and cloud instances.
 
-A Linux administrator should be able to check whether a server has internet access, whether a service is listening on a port, and whether another server is reachable.
+A Linux administrator / devops engineer should be able to check whether a server has internet access, whether a service is listening on a port, and whether another server is reachable.
 
 ---
 
@@ -61,10 +61,11 @@ An IP address helps identify a machine in a network.
 
 There are two common types:
 
-| Type | Example | Description |
-|---|---|---|
+| Type | Example        | Description               |
+| ---- | -------------- | ------------------------- |
 | IPv4 | `192.168.1.10` | Most commonly used format |
-| IPv6 | `2001:db8::1` | Newer address format |
+| IPv6 | `2001:db8::1`  | Newer address format      |
+|      |                |                           |
 
 Check IP address:
 
@@ -125,11 +126,11 @@ The `/24` is called CIDR notation. It defines how many bits are used for the net
 
 Common subnet examples:
 
-| CIDR | Subnet Mask | Approx. Usable Hosts |
-|---|---|---|
-| `/24` | `255.255.255.0` | 254 |
-| `/16` | `255.255.0.0` | 65,534 |
-| `/8` | `255.0.0.0` | 16 million+ |
+| CIDR  | Subnet Mask     | Approx. Usable Hosts |
+| ----- | --------------- | -------------------- |
+| `/24` | `255.255.255.0` | 254                  |
+| `/16` | `255.255.0.0`   | 65,534               |
+| `/8`  | `255.0.0.0`     | 16 million+          |
 
 Check route and subnet information:
 
@@ -300,18 +301,18 @@ curl -o /dev/null -s -w "%{http_code}\n" http://localhost
 
 Common HTTP status codes:
 
-| Code | Meaning |
-|---|---|
-| `200` | OK |
-| `301` | Redirect |
-| `302` | Temporary redirect |
-| `400` | Bad request |
-| `401` | Unauthorized |
-| `403` | Forbidden |
-| `404` | Not found |
+| Code  | Meaning               |
+| ----- | --------------------- |
+| `200` | OK                    |
+| `301` | Redirect              |
+| `302` | Temporary redirect    |
+| `400` | Bad request           |
+| `401` | Unauthorized          |
+| `403` | Forbidden             |
+| `404` | Not found             |
 | `500` | Internal server error |
-| `502` | Bad gateway |
-| `503` | Service unavailable |
+| `502` | Bad gateway           |
+| `503` | Service unavailable   |
 
 ---
 
@@ -327,9 +328,9 @@ wget --spider https://example.com
 
 Difference between `curl` and `wget`:
 
-| Tool | Best For |
-|---|---|
-| `curl` | Testing APIs and HTTP endpoints |
+| Tool   | Best For                                  |
+| ------ | ----------------------------------------- |
+| `curl` | Testing APIs and HTTP endpoints           |
 | `wget` | Downloading files recursively or directly |
 
 ---
@@ -345,13 +346,13 @@ ss -tulpn | grep :80
 
 Options:
 
-| Option | Meaning |
-|---|---|
-| `-t` | TCP |
-| `-u` | UDP |
-| `-l` | Listening ports |
-| `-p` | Process name |
-| `-n` | Numeric output |
+| Option | Meaning         |
+| ------ | --------------- |
+| `-t`   | TCP             |
+| `-u`   | UDP             |
+| `-l`   | Listening ports |
+| `-p`   | Process name    |
+| `-n`   | Numeric output  |
 
 ---
 
@@ -539,13 +540,13 @@ echo $PATH
 
 Common examples:
 
-| Variable | Meaning |
-|---|---|
-| `HOME` | User home directory |
-| `USER` | Current username |
-| `PATH` | Directories searched for commands |
-| `SHELL` | Current shell |
-| `PWD` | Current working directory |
+| Variable | Meaning                           |
+| -------- | --------------------------------- |
+| `HOME`   | User home directory               |
+| `USER`   | Current username                  |
+| `PATH`   | Directories searched for commands |
+| `SHELL`  | Current shell                     |
+| `PWD`    | Current working directory         |
 
 Create a temporary environment variable:
 
@@ -560,10 +561,10 @@ echo $APP_ENV
 
 Every Linux command returns an exit code.
 
-| Exit Code | Meaning |
-|---|---|
-| `0` | Success |
-| Non-zero | Error or failure |
+| Exit Code | Meaning          |
+| --------- | ---------------- |
+| `0`       | Success          |
+| Non-zero  | Error or failure |
 
 Check the previous command's exit code:
 
@@ -660,13 +661,13 @@ fi
 
 ## 4.4 Common File Tests
 
-| Test | Meaning |
-|---|---|
+| Test      | Meaning                           |
+| --------- | --------------------------------- |
 | `-f file` | File exists and is a regular file |
-| `-d dir` | Directory exists |
-| `-x file` | File exists and is executable |
-| `-r file` | File is readable |
-| `-w file` | File is writable |
+| `-d dir`  | Directory exists                  |
+| `-x file` | File exists and is executable     |
+| `-r file` | File is readable                  |
+| `-w file` | File is writable                  |
 
 ```bash
 if [ -d /var/log ]; then
@@ -678,12 +679,12 @@ fi
 
 ## 4.5 String Comparisons
 
-| Operator | Meaning |
-|---|---|
-| `=` | Equal |
-| `!=` | Not equal |
-| `-z` | Empty string |
-| `-n` | Non-empty string |
+| Operator | Meaning          |
+| -------- | ---------------- |
+| `=`      | Equal            |
+| `!=`     | Not equal        |
+| `-z`     | Empty string     |
+| `-n`     | Non-empty string |
 
 ```bash
 NAME="admin"
@@ -697,14 +698,17 @@ fi
 
 ## 4.6 Numeric Comparisons
 
-| Operator | Meaning |
-|---|---|
-| `-eq` | Equal |
-| `-ne` | Not equal |
-| `-gt` | Greater than |
-| `-lt` | Less than |
-| `-ge` | Greater than or equal |
-| `-le` | Less than or equal |
+| Operator | Meaning               |
+| -------- | --------------------- |
+| `-eq`    | Equal                 |
+| `-ne`    | Not equal             |
+| `-gt`    | Greater than          |
+| `-lt`    | Less than             |
+| `-ge`    | Greater than or equal |
+| `-le`    | Less than or equal    |
+| &&       | and                   |
+| \|\|     | or                    |
+| !        | not                   |
 
 ```bash
 COUNT=10
@@ -722,8 +726,8 @@ fi
 
 ```bash
 #!/bin/bash
-
-for NAME in ram sita hari; do
+name=( "ram","sita", "hari")
+for NAME in "${name[0]}" ; do
   echo "Hello $NAME"
 done
 ```

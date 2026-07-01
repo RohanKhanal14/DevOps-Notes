@@ -16,7 +16,6 @@ Focus areas:
 - Code review basics
 - Branch protection rules
 - Required reviews
-- GitHub Actions introduction
 - Classroom contribution workflow
 
 ---
@@ -270,11 +269,12 @@ This fetches changes from `origin/main` and merges them into your current branch
 
 ## 3.3 Difference Between fetch and pull
 
-| Command | What it Does | Safer For Beginners? |
-|---|---|---|
-| `git fetch` | Downloads changes only | Yes, because it does not modify working branch |
-| `git pull` | Downloads and merges changes | Useful, but can create unexpected merges |
-| `git pull --rebase` | Downloads and rebases local commits | Useful for cleaner history |
+| Command             | What it Does                        | Safer For Beginners?                           |
+| ------------------- | ----------------------------------- | ---------------------------------------------- |
+| `git fetch`         | Downloads changes only              | Yes, because it does not modify working branch |
+| `git pull`          | Downloads and merges changes        | Useful, but can create unexpected merges       |
+| `git pull --rebase` | Downloads and rebases local commits | Useful for cleaner history                     |
+
 
 Recommended safe workflow:
 
@@ -406,14 +406,14 @@ Delete branch
 
 ## 5.3 Pull Request States
 
-| State | Meaning |
-|---|---|
-| Open | PR is active and waiting for review or checks |
-| Draft | PR is not ready to merge yet |
-| Approved | Reviewer has approved the changes |
-| Changes requested | Reviewer wants updates before merge |
-| Merged | PR changes have been merged |
-| Closed | PR was closed without merging |
+| State             | Meaning                                       |
+| ----------------- | --------------------------------------------- |
+| Open              | PR is active and waiting for review or checks |
+| Draft             | PR is not ready to merge yet                  |
+| Approved          | Reviewer has approved the changes             |
+| Changes requested | Reviewer wants updates before merge           |
+| Merged            | PR changes have been merged                   |
+| Closed            | PR was closed without merging                 |
 
 ---
 

@@ -429,13 +429,13 @@ git rebase main
 
 ## 4.3 Merge vs Rebase
 
-| Feature | Merge | Rebase |
-|---|---|---|
-| Preserves original history | Yes | No, rewrites commits |
-| Creates merge commit | Sometimes | No |
-| History style | Branching history | Linear history |
-| Safer for shared branches | Yes | Be careful |
-| Best used for | Combining completed branches | Cleaning local feature history |
+| Feature                    | Merge                        | Rebase                         |
+| -------------------------- | ---------------------------- | ------------------------------ |
+| Preserves original history | Yes                          | No, rewrites commits           |
+| Creates merge commit       | Sometimes                    | No                             |
+| History style              | Branching history            | Linear history                 |
+| Safer for shared branches  | Yes                          | Be careful                     |
+| Best used for              | Combining completed branches | Cleaning local feature history |
 
 ---
 
@@ -489,14 +489,14 @@ pick c3d4e5f Update README
 
 Common actions:
 
-| Action | Meaning |
-|---|---|
-| `pick` | Use commit as-is |
-| `reword` | Change commit message |
-| `edit` | Stop and edit commit |
-| `squash` | Combine commit with previous commit |
-| `fixup` | Combine with previous commit and discard message |
-| `drop` | Remove commit |
+| Action   | Meaning                                          |
+| -------- | ------------------------------------------------ |
+| `pick`   | Use commit as-is                                 |
+| `reword` | Change commit message                            |
+| `edit`   | Stop and edit commit                             |
+| `squash` | Combine commit with previous commit              |
+| `fixup`  | Combine with previous commit and discard message |
+| `drop`   | Remove commit                                    |
 
 Example:
 
@@ -582,13 +582,13 @@ Steps:
 
 Common strategies:
 
-| Strategy | Description |
-|---|---|
-| Keep current version | Use content from your current branch |
-| Keep incoming version | Use content from the branch being merged |
-| Combine both changes | Manually merge both ideas |
-| Rewrite the section | Replace both versions with a cleaner final version |
-| Ask teammate | Discuss if the correct result is unclear |
+| Strategy              | Description                                        |
+| --------------------- | -------------------------------------------------- |
+| Keep current version  | Use content from your current branch               |
+| Keep incoming version | Use content from the branch being merged           |
+| Combine both changes  | Manually merge both ideas                          |
+| Rewrite the section   | Replace both versions with a cleaner final version |
+| Ask teammate          | Discuss if the correct result is unclear           |
 
 ---
 
@@ -667,13 +667,13 @@ A good branching strategy answers:
 
 Common branches:
 
-| Branch | Purpose |
-|---|---|
-| `main` | Production-ready code |
-| `develop` | Integration branch for upcoming release |
-| `feature/*` | New features |
-| `release/*` | Release preparation |
-| `hotfix/*` | Emergency production fixes |
+| Branch      | Purpose                                 |
+| ----------- | --------------------------------------- |
+| `main`      | Production-ready code                   |
+| `develop`   | Integration branch for upcoming release |
+| `feature/*` | New features                            |
+| `release/*` | Release preparation                     |
+| `hotfix/*`  | Emergency production fixes              |
 
 Example flow:
 
@@ -743,14 +743,15 @@ main -> short feature branch -> pull request -> merge quickly
 
 ## 6.4 Git Flow vs Trunk-Based Development
 
-| Topic | Git Flow | Trunk-Based Development |
-|---|---|---|
-| Main branch | Production code | Main integration branch |
-| Development branch | Uses `develop` | Usually no `develop` |
-| Feature branches | Can live longer | Short-lived |
-| Release process | More structured | Continuous |
-| Complexity | Higher | Lower |
-| Best for | Scheduled releases | CI/CD and frequent releases |
+| Topic              | Git Flow           | Trunk-Based Development     |
+| ------------------ | ------------------ | --------------------------- |
+| Main branch        | Production code    | Main integration branch     |
+| Development branch | Uses `develop`     | Usually no `develop`        |
+| Feature branches   | Can live longer    | Short-lived                 |
+| Release process    | More structured    | Continuous                  |
+| Complexity         | Higher             | Lower                       |
+| Best for           | Scheduled releases | CI/CD and frequent releases |
+|                    |                    |                             |
 
 ---
 

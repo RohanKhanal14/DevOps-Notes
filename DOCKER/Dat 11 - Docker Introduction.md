@@ -45,14 +45,14 @@ Containers are:
 ![Alt text](container-what-is-container.png)
 ### Comparison Table
 
-| Feature          | Virtual Machine        | Container              |
-|------------------|------------------------|------------------------|
-| OS               | Full OS per VM         | Shares host kernel     |
-| Boot time        | Minutes                | Seconds or less        |
-| Disk size        | GBs                    | MBs                    |
-| Isolation        | Strong (hardware-level)| Process-level          |
-| Portability      | Limited                | High                   |
-| Resource usage   | High                   | Low                    |
+| Feature        | Virtual Machine         | Container          |
+| -------------- | ----------------------- | ------------------ |
+| OS             | Full OS per VM          | Shares host kernel |
+| Boot time      | Minutes                 | Seconds or less    |
+| Disk size      | GBs                     | MBs                |
+| Isolation      | Strong (hardware-level) | Process-level      |
+| Portability    | Limited                 | High               |
+| Resource usage | High                    | Low                |
 
 ---
 
@@ -64,14 +64,14 @@ Containers are not magic. They are built on two Linux kernel features: **namespa
 
 A **namespace** limits what a process can see. Each container gets its own set of namespaces so it cannot see or interfere with other containers or the host.
 
-| Namespace | What it isolates                         |
-|-----------|------------------------------------------|
+| Namespace | What it isolates                          |
+| --------- | ----------------------------------------- |
 | `pid`     | Process IDs — container sees its own PIDs |
-| `net`     | Network interfaces, IP addresses, ports  |
-| `mnt`     | Filesystem mount points                  |
-| `uts`     | Hostname and domain name                 |
-| `ipc`     | Inter-process communication              |
-| `user`    | User and group IDs                       |
+| `net`     | Network interfaces, IP addresses, ports   |
+| `mnt`     | Filesystem mount points                   |
+| `uts`     | Hostname and domain name                  |
+| `ipc`     | Inter-process communication               |
+| `user`    | User and group IDs                        |
 
 Example: Process with PID `1` inside a container is a completely different process from PID `1` on the host.
 
@@ -96,11 +96,11 @@ Docker uses a **client-server architecture**.
 ![Alt text](docker-architecture.gif)
 ### Components
 
-| Component        | Role                                                             |
-|------------------|------------------------------------------------------------------|
-| Docker Client    | CLI tool (`docker`) that sends commands to the daemon           |
-| Docker Daemon    | Background service (`dockerd`) that manages containers/images   |
-| Docker Registry  | Remote storage for images (Docker Hub is the default public one)|
+| Component       | Role                                                             |
+| --------------- | ---------------------------------------------------------------- |
+| Docker Client   | CLI tool (`docker`) that sends commands to the daemon            |
+| Docker Daemon   | Background service (`dockerd`) that manages containers/images    |
+| Docker Registry | Remote storage for images (Docker Hub is the default public one) |
 
 When you run `docker run nginx`:
 1. The **client** sends the command to the **daemon**.
@@ -184,11 +184,11 @@ When a container runs:
 
 Types of images on Docker Hub:
 
-| Type             | Example              | Description                               |
-|------------------|----------------------|-------------------------------------------|
+| Type             | Example                   | Description                                 |
+| ---------------- | ------------------------- | ------------------------------------------- |
 | Official images  | `nginx`, `node`, `ubuntu` | Maintained by Docker or the software vendor |
-| Verified images  | `bitnami/nginx`      | Verified publishers                       |
-| Community images | `username/myapp`     | Uploaded by anyone                        |
+| Verified images  | `bitnami/nginx`           | Verified publishers                         |
+| Community images | `username/myapp`          | Uploaded by anyone                          |
 
 Pull an image manually:
 
@@ -217,16 +217,16 @@ A container moves through these states:
 
 ![Alt text](docker_lifecycle.png)
 
-| Command             | Description                                           |
-|---------------------|-------------------------------------------------------|
-| `docker create`     | Create a container but do not start it                |
-| `docker start`      | Start a created or stopped container                  |
-| `docker run`        | Create and start a container in one step              |
-| `docker stop`       | Gracefully stop a running container (sends SIGTERM)   |
-| `docker kill`       | Force-stop a container immediately (sends SIGKILL)    |
-| `docker rm`         | Remove a stopped container                            |
-| `docker ps`         | List running containers                               |
-| `docker ps -a`      | List all containers including stopped ones            |
+| Command         | Description                                         |
+| --------------- | --------------------------------------------------- |
+| `docker create` | Create a container but do not start it              |
+| `docker start`  | Start a created or stopped container                |
+| `docker run`    | Create and start a container in one step            |
+| `docker stop`   | Gracefully stop a running container (sends SIGTERM) |
+| `docker kill`   | Force-stop a container immediately (sends SIGKILL)  |
+| `docker rm`     | Remove a stopped container                          |
+| `docker ps`     | List running containers                             |
+| `docker ps -a`  | List all containers including stopped ones          |
 
 ---
 
@@ -239,6 +239,39 @@ Verify Docker is installed:
 ```bash
 docker --version
 docker info
+```
+
+If docker is not installed. 
+
+https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+
+Set up Docker's `apt` repository.
+
+```bash
+# Add Docker's official GPG key:
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
+```
+
+Install the Docker packages.
+
+```bash
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
 ---

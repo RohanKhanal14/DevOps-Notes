@@ -78,7 +78,7 @@ Directories provide a hierarchical organization structure. This structure may be
 
 When working in Linux, it is important to know how to manipulate files and directories. Some Linux distributions provide GUI-based file managers, but it is very useful to know how to perform these operations from the command line.
 
-![Alt text](/images/Linux/Linux_Basics/image1.png)
+![Alt text](images/Linux/Linux_Basics/image1.png)
 ## 3.1 Directory Structure
 
 On a Windows system, the top level of the directory structure is called **My Computer**. Physical devices, such as hard drives, USB drives, and network drives, appear under **My Computer** and are assigned drive letters such as `C:` or `D:`.
@@ -103,13 +103,13 @@ Example output:
 bin   boot  cdrom  dev  etc  home  lib  lib32  lib64  media  mnt  opt  proc  root  run  sbin  snap  srv  swap.img  sys  tmp  usr  var
 ```
 
-![Alt text](/images/Linux/Linux_Basics/image2.png)
+![Alt text](images/Linux/Linux_Basics/image2.png)
 
 ## 3.1.1 Home Directory
 
 The term **home directory** often confuses new Linux users. On most Linux distributions, there is a directory called `home` under the root `/` directory.
 
-![Alt text](/images/Linux/Linux_Basics/image3.png)
+![Alt text](images/Linux/Linux_Basics/image3.png)
 
 Under `/home`, there is a directory for each user on the system. The directory name is usually the same as the username. For example, a user named `sysadmin` would have a home directory called:
 
@@ -117,7 +117,7 @@ Under `/home`, there is a directory for each user on the system. The directory n
 /home/sysadmin
 ```
 
-![Alt text](/images/Linux/Linux_Basics/image4.png)
+![Alt text](images/Linux/Linux_Basics/image4.png)
 
 The home directory is important because:
 
@@ -163,7 +163,7 @@ pwd [OPTIONS]
 
 `pwd` stands for **print working directory**. It prints the current location of the user within the filesystem.
 
-![Alt text](/images/Linux/Linux_Basics/image5.png)
+![Alt text](images/Linux/Linux_Basics/image5.png)
 
 Example:
 

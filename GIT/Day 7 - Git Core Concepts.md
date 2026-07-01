@@ -94,10 +94,10 @@ Version control helps teams avoid losing work and makes collaboration easier.
 
 There are two common types of version control systems.
 
-| Type | Description | Example |
-|---|---|---|
-| Centralized Version Control | One central server stores the full history | SVN |
-| Distributed Version Control | Every developer has a full copy of the repository history | Git |
+| Type                        | Description                                               | Example |
+| --------------------------- | --------------------------------------------------------- | ------- |
+| Centralized Version Control | One central server stores the full history                | SVN     |
+| Distributed Version Control | Every developer has a full copy of the repository history | Git     |
 
 In centralized systems, users depend heavily on the central server.
 
@@ -197,12 +197,12 @@ Git stores data as objects inside:
 
 Important Git object types:
 
-| Object Type | Purpose |
-|---|---|
-| Blob | Stores file content |
-| Tree | Stores directory structure |
-| Commit | Stores snapshot metadata |
-| Tag | Stores tag information |
+| Object Type | Purpose                    |
+| ----------- | -------------------------- |
+| Blob        | Stores file content        |
+| Tree        | Stores directory structure |
+| Commit      | Stores snapshot metadata   |
+| Tag         | Stores tag information     |
 
 Git does not simply store files as normal copies. Instead, it stores content as objects identified by hashes.
 
@@ -291,10 +291,10 @@ They are stored inside:
 
 Common refs:
 
-| Ref Type | Example |
-|---|---|
-| Branch | `refs/heads/main` |
-| Tag | `refs/tags/v1.0.0` |
+| Ref Type      | Example                    |
+| ------------- | -------------------------- |
+| Branch        | `refs/heads/main`          |
+| Tag           | `refs/tags/v1.0.0`         |
 | Remote branch | `refs/remotes/origin/main` |
 
 A branch is simply a movable pointer to a commit.
@@ -331,11 +331,11 @@ When you make a new commit, the branch pointer moves forward, and `HEAD` still p
 
 Git has three important working areas:
 
-| Area | Meaning |
-|---|---|
-| Working tree | Your actual project files |
+| Area         | Meaning                          |
+| ------------ | -------------------------------- |
+| Working tree | Your actual project files        |
 | Staging area | Prepared changes for next commit |
-| Repository | Saved commit history |
+| Repository   | Saved commit history             |
 
 ---
 
@@ -982,14 +982,14 @@ Git will ask what to do with each change.
 
 Common options:
 
-| Option | Meaning |
-|---|---|
-| `y` | Stage this hunk |
-| `n` | Do not stage this hunk |
-| `s` | Split hunk into smaller parts |
-| `e` | Manually edit hunk |
-| `q` | Quit |
-| `?` | Show help |
+| Option | Meaning                       |
+| ------ | ----------------------------- |
+| `y`    | Stage this hunk               |
+| `n`    | Do not stage this hunk        |
+| `s`    | Split hunk into smaller parts |
+| `e`    | Manually edit hunk            |
+| `q`    | Quit                          |
+| `?`    | Show help                     |
 
 After staging selected parts:
 

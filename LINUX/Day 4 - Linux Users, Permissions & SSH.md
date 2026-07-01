@@ -60,11 +60,11 @@ Linux internally identifies users by UID, not by username. The username is mainl
 
 Common UID ranges:
 
-| UID Range | Meaning |
-|---|---|
-| `0` | Root user |
-| `1-999` | System users and service accounts |
-| `1000+` | Normal human users on many Linux distributions |
+| UID Range | Meaning                                        |
+| --------- | ---------------------------------------------- |
+| `0`       | Root user                                      |
+| `1-999`   | System users and service accounts              |
+| `1000+`   | Normal human users on many Linux distributions |
 
 Example:
 
@@ -111,15 +111,15 @@ student:x:1001:1001:Student User:/home/student:/bin/bash
 
 Field breakdown:
 
-| Field | Example | Meaning |
-|---|---|---|
-| Username | `student` | Login name |
-| Password placeholder | `x` | Password is stored in `/etc/shadow` |
-| UID | `1001` | User ID |
-| GID | `1001` | Primary group ID |
-| Comment/GECOS | `Student User` | Full name or description |
-| Home directory | `/home/student` | User's home folder |
-| Login shell | `/bin/bash` | Shell started after login |
+| Field                | Example         | Meaning                             |
+| -------------------- | --------------- | ----------------------------------- |
+| Username             | `student`       | Login name                          |
+| Password placeholder | `x`             | Password is stored in `/etc/shadow` |
+| UID                  | `1001`          | User ID                             |
+| GID                  | `1001`          | Primary group ID                    |
+| Comment/GECOS        | `Student User`  | Full name or description            |
+| Home directory       | `/home/student` | User's home folder                  |
+| Login shell          | `/bin/bash`     | Shell started after login           |
 
 Important note:
 
@@ -145,14 +145,14 @@ student:$y$j9T$abc...:19800:0:99999:7:::
 
 Important fields:
 
-| Field | Meaning |
-|---|---|
-| Username | Account name |
-| Password hash | Encrypted password hash |
-| Last password change | Days since Jan 1, 1970 |
-| Minimum age | Minimum days before password can be changed |
-| Maximum age | Maximum days password is valid |
-| Warning period | Days before expiry to warn user |
+| Field                | Meaning                                     |
+| -------------------- | ------------------------------------------- |
+| Username             | Account name                                |
+| Password hash        | Encrypted password hash                     |
+| Last password change | Days since Jan 1, 1970                      |
+| Minimum age          | Minimum days before password can be changed |
+| Maximum age          | Maximum days password is valid              |
+| Warning period       | Days before expiry to warn user             |
 
 Security point:
 
@@ -176,11 +176,11 @@ Typical output:
 
 Every file and directory has three permission categories:
 
-| Category | Meaning |
-|---|---|
-| User/Owner | The user who owns the file |
-| Group | The group associated with the file |
-| Others | Everyone else |
+| Category   | Meaning                            |
+| ---------- | ---------------------------------- |
+| User/Owner | The user who owns the file         |
+| Group      | The group associated with the file |
+| Others     | Everyone else                      |
 
 Check permissions:
 
@@ -207,12 +207,12 @@ Breakdown:
 
 Permission symbols:
 
-| Symbol | Meaning |
-|---|---|
-| `r` | Read |
-| `w` | Write |
-| `x` | Execute |
-| `-` | Permission not granted |
+| Symbol | Meaning                |
+| ------ | ---------------------- |
+| `r`    | Read                   |
+| `w`    | Write                  |
+| `x`    | Execute                |
+| `-`    | Permission not granted |
 
 For files:
 
@@ -234,11 +234,11 @@ The `chmod` command changes file or directory permissions.
 
 Octal mode uses numbers:
 
-| Permission | Number |
-|---|---:|
-| Read `r` | 4 |
-| Write `w` | 2 |
-| Execute `x` | 1 |
+| Permission  | Number |
+| ----------- | -----: |
+| Read `r`    |      4 |
+| Write `w`   |      2 |
+| Execute `x` |      1 |
 
 Add the numbers to create permission sets:
 
@@ -272,13 +272,15 @@ Result:
 
 Common permission examples:
 
-| Command | Meaning |
-|---|---|
-| `chmod 600 file.txt` | Only owner can read/write |
-| `chmod 644 file.txt` | Owner read/write, others read-only |
-| `chmod 700 script.sh` | Only owner can read/write/execute |
-| `chmod 755 script.sh` | Owner full access, others read/execute |
-| `chmod 770 shared/` | Owner and group full access, others no access |
+| Command               | Meaning                                       |
+| --------------------- | --------------------------------------------- |
+| `chmod 600 file.txt`  | Only owner can read/write                     |
+| `chmod 644 file.txt`  | Owner read/write, others read-only            |
+| `chmod 700 script.sh` | Only owner can read/write/execute             |
+| `chmod 755 script.sh` | Owner full access, others read/execute        |
+| `chmod 770 shared/`   | Owner and group full access, others no access |
+|                       |                                               |
+|                       |                                               |
 
 ---
 
@@ -288,20 +290,20 @@ Symbolic mode uses letters instead of numbers.
 
 User categories:
 
-| Symbol | Meaning |
-|---|---|
-| `u` | User/owner |
-| `g` | Group |
-| `o` | Others |
-| `a` | All users |
+| Symbol | Meaning    |
+| ------ | ---------- |
+| `u`    | User/owner |
+| `g`    | Group      |
+| `o`    | Others     |
+| `a`    | All users  |
 
 Operators:
 
-| Operator | Meaning |
-|---|---|
-| `+` | Add permission |
-| `-` | Remove permission |
-| `=` | Set exact permission |
+| Operator | Meaning              |
+| -------- | -------------------- |
+| `+`      | Add permission       |
+| `-`      | Remove permission    |
+| `=`      | Set exact permission |
 
 Examples:
 
@@ -412,6 +414,7 @@ Example:
 ```bash
 sudo apt update
 sudo useradd testuser
+sudo useradd -m testuser # make user with home dir 
 ```
 
 Without `sudo`, normal users cannot perform many administrative tasks.
@@ -445,12 +448,12 @@ student ALL=(ALL:ALL) ALL
 
 Meaning:
 
-| Part | Meaning |
-|---|---|
-| `student` | User allowed to use sudo |
-| `ALL` | From any host |
+| Part        | Meaning                            |
+| ----------- | ---------------------------------- |
+| `student`   | User allowed to use sudo           |
+| `ALL`       | From any host                      |
 | `(ALL:ALL)` | Can run commands as any user/group |
-| `ALL` | Can run all commands |
+| `ALL`       | Can run all commands               |
 
 On Ubuntu, users in the `sudo` group can usually use sudo:
 
@@ -482,7 +485,7 @@ It provides:
 - Remote command execution
 - Secure file transfer using `scp` or `sftp`
 - Secure tunneling and port forwarding
-
+ 
 Default SSH port:
 
 ```text
@@ -491,11 +494,11 @@ Default SSH port:
 
 Main SSH components:
 
-| Component | Meaning |
-|---|---|
-| SSH client | The machine running the `ssh` command |
-| SSH server | The remote machine running the `sshd` service |
-| `sshd` | SSH daemon that listens for incoming SSH connections |
+| Component  | Meaning                                              |
+| ---------- | ---------------------------------------------------- |
+| SSH client | The machine running the `ssh` command                |
+| SSH server | The remote machine running the `sshd` service        |
+| `sshd`     | SSH daemon that listens for incoming SSH connections |
 
 Basic SSH command:
 
@@ -540,10 +543,10 @@ Key-based authentication uses a cryptographic key pair.
 
 The key pair contains:
 
-| Key | Location | Purpose |
-|---|---|---|
-| Private key | Client machine | Must be kept secret |
-| Public key | Server machine | Stored in `~/.ssh/authorized_keys` |
+| Key         | Location       | Purpose                            |
+| ----------- | -------------- | ---------------------------------- |
+| Private key | Client machine | Must be kept secret                |
+| Public key  | Server machine | Stored in `~/.ssh/authorized_keys` |
 
 Generate key pair:
 
@@ -895,7 +898,7 @@ docker exec -it ssh-server bash
 
 **Note** : *These commands will not run inside the container because these containers are very minimal version of ubuntu.*
 
-On the server machine:
+On the server machine: 
 
 ```bash
 sudo systemctl status ssh --no-pager

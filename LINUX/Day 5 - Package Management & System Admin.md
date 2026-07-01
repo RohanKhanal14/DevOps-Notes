@@ -76,11 +76,11 @@ Package managers make system administration faster, safer, and more consistent.
 
 Different Linux distributions use different package managers.
 
-| Package Manager | Used In | Package Format | Example |
-|---|---|---|---|
-| `apt` | Debian, Ubuntu, Linux Mint | `.deb` | `sudo apt install nginx` |
-| `yum` | Older RHEL, CentOS 7, Amazon Linux 2 | `.rpm` | `sudo yum install nginx` |
-| `dnf` | Fedora, RHEL 8/9, Rocky Linux, AlmaLinux | `.rpm` | `sudo dnf install nginx` |
+| Package Manager | Used In                                  | Package Format | Example                  |
+| --------------- | ---------------------------------------- | -------------- | ------------------------ |
+| `apt`           | Debian, Ubuntu, Linux Mint               | `.deb`         | `sudo apt install nginx` |
+| `yum`           | Older RHEL, CentOS 7, Amazon Linux 2     | `.rpm`         | `sudo yum install nginx` |
+| `dnf`           | Fedora, RHEL 8/9, Rocky Linux, AlmaLinux | `.rpm`         | `sudo dnf install nginx` |
 
 ---
 
@@ -103,15 +103,15 @@ sudo apt show nginx
 
 ### Important apt Commands
 
-| Command | Purpose |
-|---|---|
-| `apt update` | Refresh package repository metadata |
-| `apt install package` | Install a package |
-| `apt remove package` | Remove a package |
-| `apt purge package` | Remove package including configuration files |
-| `apt upgrade` | Upgrade installed packages |
-| `apt search package` | Search for a package |
-| `apt show package` | Show package details |
+| Command               | Purpose                                      |
+| --------------------- | -------------------------------------------- |
+| `apt update`          | Refresh package repository metadata          |
+| `apt install package` | Install a package                            |
+| `apt remove package`  | Remove a package                             |
+| `apt purge package`   | Remove package including configuration files |
+| `apt upgrade`         | Upgrade installed packages                   |
+| `apt search package`  | Search for a package                         |
+| `apt show package`    | Show package details                         |
 
 ### Example
 
@@ -174,10 +174,10 @@ sudo dnf info nginx
 
 Linux package management usually has two layers:
 
-| Layer | Debian/Ubuntu | RHEL/CentOS/Fedora | Purpose |
-|---|---|---|---|
-| High-level tool | `apt` | `yum` / `dnf` | Handles repositories and dependencies |
-| Low-level tool | `dpkg` | `rpm` | Installs or queries local package files |
+| Layer           | Debian/Ubuntu | RHEL/CentOS/Fedora | Purpose                                 |
+| --------------- | ------------- | ------------------ | --------------------------------------- |
+| High-level tool | `apt`         | `yum` / `dnf`      | Handles repositories and dependencies   |
+| Low-level tool  | `dpkg`        | `rpm`              | Installs or queries local package files |
 
 High-level tools are usually preferred for daily administration because they automatically manage dependencies.
 
@@ -210,13 +210,13 @@ sudo dpkg -r package-name
 
 ### Important dpkg Commands
 
-| Command | Meaning |
-|---|---|
-| `dpkg -l` | List installed packages |
-| `dpkg -s package` | Show package status and details |
-| `dpkg -L package` | List files installed by a package |
-| `dpkg -i file.deb` | Install a local `.deb` file |
-| `dpkg -r package` | Remove a package |
+| Command            | Meaning                           |
+| ------------------ | --------------------------------- |
+| `dpkg -l`          | List installed packages           |
+| `dpkg -s package`  | Show package status and details   |
+| `dpkg -L package`  | List files installed by a package |
+| `dpkg -i file.deb` | Install a local `.deb` file       |
+| `dpkg -r package`  | Remove a package                  |
 
 ### Important Note
 
@@ -313,13 +313,13 @@ A **service** is a background process that usually starts automatically and prov
 
 Examples:
 
-| Service | Purpose |
-|---|---|
-| `nginx` | Web server |
-| `ssh` | Remote login |
-| `cron` | Scheduled tasks |
+| Service  | Purpose          |
+| -------- | ---------------- |
+| `nginx`  | Web server       |
+| `ssh`    | Remote login     |
+| `cron`   | Scheduled tasks  |
 | `docker` | Container engine |
-| `mysql` | Database server |
+| `mysql`  | Database server  |
 
 Services are usually managed using `systemctl`.
 
@@ -397,13 +397,13 @@ Targets are similar to old Linux runlevels.
 
 Common targets:
 
-| Target | Purpose |
-|---|---|
-| `multi-user.target` | Normal command-line multi-user mode |
-| `graphical.target` | GUI mode |
-| `rescue.target` | Rescue mode |
-| `emergency.target` | Minimal emergency shell |
-| `network-online.target` | Network is fully online |
+| Target                  | Purpose                             |
+| ----------------------- | ----------------------------------- |
+| `multi-user.target`     | Normal command-line multi-user mode |
+| `graphical.target`      | GUI mode                            |
+| `rescue.target`         | Rescue mode                         |
+| `emergency.target`      | Minimal emergency shell             |
+| `network-online.target` | Network is fully online             |
 
 Check current default target:
 
