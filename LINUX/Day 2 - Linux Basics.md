@@ -78,7 +78,7 @@ Directories provide a hierarchical organization structure. This structure may be
 
 When working in Linux, it is important to know how to manipulate files and directories. Some Linux distributions provide GUI-based file managers, but it is very useful to know how to perform these operations from the command line.
 
-![Alt text](images/Linux/Linux_Basics/image1.png)
+![Alt text](../images/Linux/Linux_Basics/image1.png)
 ## 3.1 Directory Structure
 
 On a Windows system, the top level of the directory structure is called **My Computer**. Physical devices, such as hard drives, USB drives, and network drives, appear under **My Computer** and are assigned drive letters such as `C:` or `D:`.
@@ -103,13 +103,13 @@ Example output:
 bin   boot  cdrom  dev  etc  home  lib  lib32  lib64  media  mnt  opt  proc  root  run  sbin  snap  srv  swap.img  sys  tmp  usr  var
 ```
 
-![Alt text](images/Linux/Linux_Basics/image2.png)
+![Alt text](../images/Linux/Linux_Basics/image2.png)
 
 ## 3.1.1 Home Directory
 
 The term **home directory** often confuses new Linux users. On most Linux distributions, there is a directory called `home` under the root `/` directory.
 
-![Alt text](images/Linux/Linux_Basics/image3.png)
+![Alt text](../images/Linux/Linux_Basics/image3.png)
 
 Under `/home`, there is a directory for each user on the system. The directory name is usually the same as the username. For example, a user named `sysadmin` would have a home directory called:
 
@@ -117,7 +117,7 @@ Under `/home`, there is a directory for each user on the system. The directory n
 /home/sysadmin
 ```
 
-![Alt text](images/Linux/Linux_Basics/image4.png)
+![Alt text](../images/Linux/Linux_Basics/image4.png)
 
 The home directory is important because:
 
@@ -163,7 +163,7 @@ pwd [OPTIONS]
 
 `pwd` stands for **print working directory**. It prints the current location of the user within the filesystem.
 
-![Alt text](images/Linux/Linux_Basics/image5.png)
+![Alt text](../images/Linux/Linux_Basics/image5.png)
 
 Example:
 
@@ -182,7 +182,7 @@ Example output:
 ## 3.1.3 Changing Directories
 
 When a user opens a shell, they typically begin in their home directory.
-![Alt text](/images/Linux/Linux_Basics/image5.png)
+![Alt text](../images/Linux/Linux_Basics/image5.png)
 
 To navigate the filesystem, use the `cd` command.
 
@@ -192,7 +192,7 @@ cd [options] [path]
 
 `cd` stands for **change directory**.
 
-![Alt text](/images/Linux/Linux_Basics/image8.png)
+![Alt text](../images/Linux/Linux_Basics/image8.png)
 
 For example, if there is a directory called `Documents` inside the current user's home directory, move into it with:
 
@@ -219,7 +219,7 @@ The argument passed to the `cd` command is more than just a directory name. It i
 
 A path is a list of directories separated by the `/` character. If you think of the filesystem as a map, paths are directory addresses. They provide step-by-step navigation directions and can be used to indicate the location of any file or directory.
 
-![Alt text](/images/Linux/Linux_Basics/image9.png)
+![Alt text](../images/Linux/Linux_Basics/image9.png)
 
 For example:
 
@@ -294,7 +294,7 @@ sysadmin@localhost:~/Documents$
 
 If the user is located in the `Documents` directory and wants to move to the `Art` directory inside `Documents/School`, there are multiple ways to do it.
 
-![Alt text](/images/Linux/Linux_Basics/image10.png)
+![Alt text](../images/Linux/Linux_Basics/image10.png)
 
 Using the absolute path:
 
@@ -321,7 +321,7 @@ To confirm the change:
 pwd
 ```
 
-![Alt text](/images/Linux/Linux_Basics/image11.png)
+![Alt text](../images/Linux/Linux_Basics/image11.png)
 
 Example output:
 
@@ -345,12 +345,12 @@ cd ..
 
 The `..` shortcut can also be used in longer paths.
 
-![Alt text](/images/Linux/Linux_Basics/image12.png)
+![Alt text](../images/Linux/Linux_Basics/image12.png)
 
 For example, to move from the `School` directory to the `Downloads` directory:
 
 ```bash
-cd ../../Downloads
+cd ../Downloads
 ```
 
 ### The `.` character
