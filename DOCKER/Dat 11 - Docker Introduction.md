@@ -32,7 +32,7 @@ A VM runs a **complete operating system** on top of a hypervisor (like VirtualBo
 
 VMs are isolated and secure but heavy — each VM can take several GB of disk space and minutes to boot.
 
-![Alt text](virtual_machines.png)
+![Alt text](../images/Docker/virtual_machines.png)
 ### Containers
 
 A container shares the **host OS kernel** and isolates only the application and its dependencies. No full OS copy needed.
@@ -42,7 +42,7 @@ Containers are:
 - Fast to start (milliseconds to seconds)
 - Portable — runs the same on any machine with Docker
 
-![Alt text](container-what-is-container.png)
+![Alt text](../images/Docker/container-what-is-container.png)
 ### Comparison Table
 
 | Feature        | Virtual Machine         | Container          |
@@ -93,7 +93,7 @@ docker run -m 512m nginx
 
 Docker uses a **client-server architecture**.
 
-![Alt text](docker-architecture.gif)
+![Alt text](../images/Docker/docker-architecture.gif)
 ### Components
 
 | Component       | Role                                                             |
@@ -215,7 +215,7 @@ ubuntu:24.04       → official Ubuntu 24.04 image
 
 A container moves through these states:
 
-![Alt text](docker_lifecycle.png)
+![Alt text](../images/Docker/docker_lifecycle.png)
 
 | Command         | Description                                         |
 | --------------- | --------------------------------------------------- |
