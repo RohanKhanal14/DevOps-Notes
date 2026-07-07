@@ -35,13 +35,13 @@ registry/username/repository:tag
 
 ### Examples
 
-| Image reference                          | Registry       | Namespace     | Repo    | Tag        |
-|------------------------------------------|----------------|---------------|---------|------------|
-| `nginx`                                  | docker.io      | library       | nginx   | latest     |
-| `nginx:1.25-alpine`                      | docker.io      | library       | nginx   | 1.25-alpine|
-| `yourname/myapp:v1.0.0`                  | docker.io      | yourname      | myapp   | v1.0.0     |
-| `ghcr.io/yourname/myapp:main`            | ghcr.io        | yourname      | myapp   | main       |
-| `123456789.dkr.ecr.ap-south-1.amazonaws.com/myapp:latest` | AWS ECR | — | myapp | latest |
+| Image reference                                           | Registry  | Namespace | Repo  | Tag         |
+| --------------------------------------------------------- | --------- | --------- | ----- | ----------- |
+| `nginx`                                                   | docker.io | library   | nginx | latest      |
+| `nginx:1.25-alpine`                                       | docker.io | library   | nginx | 1.25-alpine |
+| `yourname/myapp:v1.0.0`                                   | docker.io | yourname  | myapp | v1.0.0      |
+| `ghcr.io/yourname/myapp:main`                             | ghcr.io   | yourname  | myapp | main        |
+| `123456789.dkr.ecr.ap-south-1.amazonaws.com/myapp:latest` | AWS ECR   | —         | myapp | latest      |
 
 When no registry is specified, Docker defaults to `docker.io` (Docker Hub).  
 When no tag is specified, Docker defaults to `latest`.
@@ -144,14 +144,14 @@ yourname/myapp:latest           # convenience
 
 ### Key Concepts
 
-| Term               | Meaning                                                  |
-|--------------------|----------------------------------------------------------|
-| Repository         | A collection of image tags under one name (`yourname/myapp`) |
-| Tag                | A specific version of an image within a repository       |
-| Public repo        | Anyone can pull without authentication                   |
-| Private repo       | Requires authentication to pull (free tier: 1 private repo) |
-| Official image     | Verified images maintained by Docker or the software vendor |
-| Docker Verified    | Published by verified organizations (e.g. `bitnami/`)    |
+| Term            | Meaning                                                      |
+| --------------- | ------------------------------------------------------------ |
+| Repository      | A collection of image tags under one name (`yourname/myapp`) |
+| Tag             | A specific version of an image within a repository           |
+| Public repo     | Anyone can pull without authentication                       |
+| Private repo    | Requires authentication to pull (free tier: 1 private repo)  |
+| Official image  | Verified images maintained by Docker or the software vendor  |
+| Docker Verified | Published by verified organizations (e.g. `bitnami/`)        |
 
 ### Access Tokens (Preferred Over Password)
 
@@ -647,8 +647,8 @@ if ! echo "${APP_VERSION}" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
 fi
 
 # ── Configuration ─────────────────────────────────────────────────────────────
-IMAGE_NAME="${IMAGE_NAME:-registry-lab}"
-DOCKERFILE="${DOCKERFILE:-./Dockerfile}"
+IMAGE_NAME="${IMAGE_NAME:three-tier-crud-app-backend}"
+DOCKERFILE="${DOCKERFILE:-backend/Dockerfile}"
 BUILD_CONTEXT="${BUILD_CONTEXT:-.}"
 FULL_IMAGE="${DOCKERHUB_USERNAME}/${IMAGE_NAME}"
 
@@ -823,8 +823,8 @@ APP_VERSION=v1.1.0 ./build-and-push.sh
 
 ## Assignment Checklist
 
-- [ ] Script file named `build-and-push.sh`, executable (`chmod +x`)
-- [ ] `set -euo pipefail` at the top
+- [x] Script file named `build-and-push.sh`, executable (`chmod +x`)
+- [x] `set -euo pipefail` at the top
 - [ ] `DOCKERHUB_USERNAME` and `APP_VERSION` validated — exits with clear error if missing
 - [ ] Semver format validated with regex
 - [ ] Git SHA captured with `git rev-parse --short HEAD`

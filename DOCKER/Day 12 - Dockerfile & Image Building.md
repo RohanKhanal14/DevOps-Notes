@@ -101,9 +101,9 @@ COPY <source-on-host> <destination-in-image>
 
 `COPY` vs `ADD`:
 
-| Command | Use case |
-|---------|----------|
-| `COPY`  | Copy local files — prefer this almost always |
+| Command | Use case                                                              |
+| ------- | --------------------------------------------------------------------- |
+| `COPY`  | Copy local files — prefer this almost always                          |
 | `ADD`   | Can also extract `.tar` archives and fetch URLs — avoid unless needed |
 
 **Best practice:** Use `COPY` over `ADD` unless you specifically need `ADD`'s extra features.

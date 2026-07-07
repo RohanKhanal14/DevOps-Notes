@@ -41,17 +41,6 @@ If this **repository** helps you, give it a ⭐ to show your support and help ot
 Today we’ll convert our Day-5 Freestyle flow into a **Jenkinsfile**: same steps (checkout → build → push → deploy → test), but now **as code** so it’s versioned, reviewable, and easy to evolve. We’ll keep the core simple (build number as the image tag), then add practical upgrades: **post actions**, a **deploy-info.txt** artifact for traceability, and a final **workspace cleanup**. By the end, you’ll have a production-shaped pipeline that’s still beginner-friendly.
 
 ---
-
-## Prerequisites
-
-Before Day 6, make sure you’re comfortable with the Day-5 flow (Docker-outside-of-Docker, credentials, build → push → deploy → test).
-Review these:
-
-* **Day 5 — GitHub Notes:** [Jenkins-Basics-To-Production / Day 05](https://github.com/CloudWithVarJosh/Jenkins-Basics-To-Production/tree/main/Day%2005)
-* **Day 5 — YouTube Video:** [Build, Push & Deploy a Dockerized Flask App with Jenkins](https://www.youtube.com/watch?v=UYlVTs_yK8U&ab_channel=CloudWithVarJosh)
-
----
-
 ## Why Pipelines? (the big wins)
 
 * **Code-as-config:** One **Jenkinsfile** in Git — reviewed, versioned, rollbackable.

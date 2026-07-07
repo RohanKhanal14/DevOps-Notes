@@ -90,7 +90,7 @@ A quick, well-structured map of what’s inside Jenkins’ home—**what to care
 
 > ### Where jobs live vs. where they run (Controller vs. Agents)
 
-![Alt text](/images/4a.png)
+![Alt text](4a.png)
 >
 > **Control plane state (controller):** Job configs, build records/logs, credentials, plugins, and archived artifacts live under `$JENKINS_HOME/jobs/...`.
 > **Execution (agents):** Build steps run on the **assigned node**. Each agent uses its own **workspace** (under its *Remote root*) as scratch space.

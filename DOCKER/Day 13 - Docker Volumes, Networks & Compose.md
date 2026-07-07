@@ -104,14 +104,14 @@ docker run --mount type=tmpfs,target=/tmp myapp
 
 ### Comparison Table
 
-| Feature              | Named Volume          | Bind Mount              | tmpfs               |
-|----------------------|-----------------------|-------------------------|---------------------|
-| Managed by           | Docker                | Host OS                 | Memory only         |
-| Persists after rm    | Yes                   | Yes (it's your host dir)| No                  |
-| Use in production    | Recommended           | Avoid for databases     | Secrets / scratch   |
-| Dev workflow         | Possible              | Best for live reload     | Rarely              |
-| Portability          | High                  | Low (host path required)| N/A                 |
-| Performance          | Good                  | Good on Linux            | Fastest             |
+| Feature           | Named Volume | Bind Mount               | tmpfs             |
+| ----------------- | ------------ | ------------------------ | ----------------- |
+| Managed by        | Docker       | Host OS                  | Memory only       |
+| Persists after rm | Yes          | Yes (it's your host dir) | No                |
+| Use in production | Recommended  | Avoid for databases      | Secrets / scratch |
+| Dev workflow      | Possible     | Best for live reload     | Rarely            |
+| Portability       | High         | Low (host path required) | N/A               |
+| Performance       | Good         | Good on Linux            | Fastest           |
 
 ---
 

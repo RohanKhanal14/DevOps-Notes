@@ -142,15 +142,16 @@ Even when a container runs as root, Docker drops many capabilities by default. B
 
 Common capabilities and their meaning:
 
-| Capability         | What it allows                                          |
-|--------------------|---------------------------------------------------------|
-| `NET_ADMIN`        | Configure network interfaces, firewall rules            |
-| `SYS_ADMIN`        | Mount filesystems, change namespaces — very dangerous   |
-| `SYS_PTRACE`       | Trace/debug other processes                             |
-| `NET_RAW`          | Use raw/packet sockets (can sniff network traffic)      |
-| `CHOWN`            | Change file ownership arbitrarily                       |
-| `SETUID`/`SETGID`  | Switch to any UID/GID                                   |
-| `DAC_OVERRIDE`     | Bypass file permission checks                           |
+| Capability        | What it allows                                        |
+| ----------------- | ----------------------------------------------------- |
+| `NET_ADMIN`       | Configure network interfaces, firewall rules          |
+| `SYS_ADMIN`       | Mount filesystems, change namespaces — very dangerous |
+| `SYS_PTRACE`      | Trace/debug other processes                           |
+| `NET_RAW`         | Use raw/packet sockets (can sniff network traffic)    |
+| `CHOWN`           | Change file ownership arbitrarily                     |
+| `SETUID`/`SETGID` | Switch to any UID/GID                                 |
+| `DAC_OVERRIDE`    | Bypass file permission checks                         |
+|                   |                                                       |
 
 ### Drop all capabilities, add back only what is needed
 
@@ -204,13 +205,13 @@ services:
 
 Environment variables are the most common way to pass secrets (passwords, API keys, tokens) into containers. They are convenient but have real security drawbacks:
 
-| Problem | Detail |
-|---------|--------|
-| Visible in `docker inspect` | Any user with Docker access can read all env vars |
-| Visible in `/proc/1/environ` | A process inside the container can read them |
-| Logged accidentally | Crash dumps, debug logs, and error handlers often print env vars |
-| Stored in image history | `ARG` values baked into images are visible with `docker history` |
-| Leaked in `docker-compose.yml` if committed | Devs frequently commit files with real secrets |
+| Problem                                     | Detail                                                           |
+| ------------------------------------------- | ---------------------------------------------------------------- |
+| Visible in `docker inspect`                 | Any user with Docker access can read all env vars                |
+| Visible in `/proc/1/environ`                | A process inside the container can read them                     |
+| Logged accidentally                         | Crash dumps, debug logs, and error handlers often print env vars |
+| Stored in image history                     | `ARG` values baked into images are visible with `docker history` |
+| Leaked in `docker-compose.yml` if committed | Devs frequently commit files with real secrets                   |
 
 Check how exposed env vars are:
 

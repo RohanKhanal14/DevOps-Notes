@@ -266,6 +266,10 @@ Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 
 sudo apt update
+
+sudo usermod -aG docker $USER
+newgrp docker
+
 ```
 
 Install the Docker packages.
@@ -335,11 +339,11 @@ docker run -d --name my-nginx -p 8080:80 nginx
 
 Flags explained:
 
-| Flag              | Meaning                                              |
-|-------------------|------------------------------------------------------|
-| `-d`              | Detached mode — run in background                    |
-| `--name my-nginx` | Give the container a name                            |
-| `-p 8080:80`      | Map host port 8080 to container port 80              |
+| Flag              | Meaning                                 |
+| ----------------- | --------------------------------------- |
+| `-d`              | Detached mode — run in background       |
+| `--name my-nginx` | Give the container a name               |
+| `-p 8080:80`      | Map host port 8080 to container port 80 |
 
 ### Test it
 
@@ -365,10 +369,10 @@ docker exec -it my-nginx bash
 
 Flags:
 
-| Flag | Meaning                             |
-|------|-------------------------------------|
-| `-i` | Interactive — keep stdin open        |
-| `-t` | Allocate a pseudo-TTY (terminal)     |
+| Flag | Meaning                          |
+| ---- | -------------------------------- |
+| `-i` | Interactive — keep stdin open    |
+| `-t` | Allocate a pseudo-TTY (terminal) |
 
 Now you are inside the container. Explore:
 

@@ -50,7 +50,7 @@ If this **repository** helps you, give it a ⭐ to show your support and help ot
 
 ## Introduction
 
-Welcome back to **Jenkins: Basics to Production — Day 2**.
+Welcome back to **Jenkins: Basics to Production 
 In previous lecture, we answered *why* reliable builds matter. Today we connect that to the bigger picture: **how code travels from a laptop to Production** using **Git, CI/CD, and environment promotions**, and **where Jenkins fits**.
 
 **By the end of this lecture you’ll be able to:**
