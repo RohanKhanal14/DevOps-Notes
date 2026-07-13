@@ -37,7 +37,7 @@ If this **repository** helps you, give it a ⭐ to show your support and help ot
 
 ## Introduction
 
-Welcome to **Day 3**. Today we move from “why CI/CD” to **hands-on with Jenkins**: we’ll set up Jenkins (starting with a **Docker lab**), explain **installation options** (Docker, VM/Bare Metal, Kubernetes, Cloud Marketplace, CloudBees), and build your **first Freestyle job** to learn where commands run, how artifacts work, and how tools like Git/Maven are provided. By the end, you’ll have a working Jenkins you can reuse in later sessions.
+Today we move from “why CI/CD” to **hands-on with Jenkins**: we’ll set up Jenkins (starting with a **Docker lab**), explain **installation options** (Docker, VM/Bare Metal, Kubernetes, Cloud Marketplace, CloudBees), and build your **first Freestyle job** to learn where commands run, how artifacts work, and how tools like Git/Maven are provided. By the end, you’ll have a working Jenkins you can reuse in later sessions.
 
 ---
 

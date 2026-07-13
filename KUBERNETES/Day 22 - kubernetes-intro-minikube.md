@@ -35,7 +35,7 @@ K8s observes: "There are now 3 running" ✅
 
 A Kubernetes cluster has two logical layers: the **Control Plane** (the brain) and **Worker Nodes** (the muscle).
 
-![Alt text](/images/K8/k8-architecture.svg)
+![Alt text](images/K8/k8-architecture.svg)
 
 ---
 
