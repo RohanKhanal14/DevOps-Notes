@@ -68,7 +68,7 @@ In previous lecture, we answered *why* reliable builds matter. Today we connect 
 
 ## Git & Branching: The Essentials for CI/CD
 
-![Alt text](2a.png)
+![Alt text](/images/2a.png)
 
 ### What is Git?
 
@@ -166,7 +166,7 @@ Modern DevOps isn’t just about writing code—it’s about moving changes **fr
 
 ### The core “continuous” practices (10,000-ft view)
 
-![Alt text](2b.png)
+![Alt text](/images/2b.png)
 
 #### 1. Continuous Integration (CI)
 
@@ -230,7 +230,7 @@ We integrate **small, frequent changes** via **pull requests** into protected br
 
 **GitFlow-based** and **Trunk-based** are **branching strategies**—i.e., version-control workflows that define **how teams use Git branches** to integrate code and ship releases. CI (build → test → status) works in both; what changes is **where** CI triggers and **how** code/artifacts move between environments.
 
-![Alt text](2c.png)
+![Alt text](/images/2c.png)
 
 1. **GitFlow-Based CI/CD: Environment Branches**
     * **Model:** Multiple long-lived branches mirror environments (**`dev` → `stage` → `prod`**).
@@ -280,7 +280,7 @@ Great point—here’s a cleaned-up mental model that reflects that:
 **Tagline:** *Environment branches with merges between them; **PRs gate each hop***.
 **Notes:** Clear release windows and change records; more merge overhead and longer-lived branches.
 
-![Alt text](2d.png)
+![Alt text](/images/2d.png)
 
 **What the diagram shows:** the journey of one change from a **feature branch** to a protected **`dev`** branch using a **PR (pull/merge request)**.
 >A **protected branch** is a repository rule-set that **blocks direct pushes/force-pushes** and **allows merges only via PRs** that meet guardrails—typically **green CI status checks** and **required reviews** (often also “up to date with base,” signed commits, and linear history).
@@ -378,7 +378,7 @@ Configure these on the `stage` branch so a PR **cannot merge** until the right t
 
 ---
 
-![Alt text](2e.png)
+![Alt text](/images/2e.png)
 
 ### 1 Open PR: `dev → stage`
 
@@ -482,7 +482,7 @@ The **exact digest** from the manifest is now running in Stage, configured with 
 
 ## Promotion PR: `stage → prod` (Production Gate)
 
-![Alt text](2f.png)
+![Alt text](/images/2f.png)
 
 This flow mirrors **dev → stage**: you **promote the same artifact by digest**, run checks **during the PR**, and **merge only when the environment is healthy**. The differences at Production are (1) **stricter pre-deploy gates** (approvals/change windows, prod config validation, flags default OFF) and (2) **focused post-deploy verification** (SLO guardrails + short synthetics, not Stage’s heavy suites). Below are the key deltas to highlight.
 
@@ -518,7 +518,7 @@ This flow mirrors **dev → stage**: you **promote the same artifact by digest**
 
 ### Diagram at a glance
 
-![Alt text](2g.png)
+![Alt text](/images/2g.png)
 
 One **source of truth (`main`)**; **Feature → `main` → Dev → Staging → Prod**. CI validates the PR’s **merge result**; the **post-merge pipeline builds once** and publishes an **image + digest** + `manifest.json`. Promotions read the manifest and **deploy by digest** to each env.
 
@@ -534,7 +534,7 @@ One **source of truth (`main`)**; **Feature → `main` → Dev → Staging → P
 
 ### End-to-end flow (numbers match the diagram)
 
-![Alt text](2g.png)
+![Alt text](/images/2g.png)
 
 #### 1) Commit & push (feature branch)
 
