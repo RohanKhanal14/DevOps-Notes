@@ -45,18 +45,13 @@ metadata:
 spec:
   containers:
     - name: my-app
-      image: my-app:1.0.0
+      image: nginx:latest
       ports:
         - containerPort: 3000
 ```
 
 #### Multi-container pod patterns
 
-| Pattern | Description | Example |
-|---|---|---|
-| **Sidecar** | Augments the main container | Log shipper, metrics exporter, service mesh proxy |
-| **Ambassador** | Proxy for external communication | Local proxy to a remote database |
-| **Adapter** | Normalizes output for external systems | Transforms app logs into a standard format |
 
 ```yaml
 # Multi-container pod: app + log sidecar
@@ -261,21 +256,21 @@ Every container should declare how much CPU and memory it needs. This tells the 
 
 #### Requests vs Limits
 
-| | Request | Limit |
-|---|---|---|
-| **Purpose** | Scheduling hint — minimum guaranteed | Hard ceiling — maximum allowed |
-| **Used by** | kube-scheduler (picking a node) | kubelet + kernel (enforcement) |
-| **CPU behavior** | Guaranteed CPU share | Throttled if exceeded |
-| **Memory behavior** | Guaranteed memory | OOMKilled if exceeded |
-| **Best practice** | Set based on normal load | Set 2× request as a starting point |
+|                     | Request                              | Limit                              |
+| ------------------- | ------------------------------------ | ---------------------------------- |
+| **Purpose**         | Scheduling hint — minimum guaranteed | Hard ceiling — maximum allowed     |
+| **Used by**         | kube-scheduler (picking a node)      | kubelet + kernel (enforcement)     |
+| **CPU behavior**    | Guaranteed CPU share                 | Throttled if exceeded              |
+| **Memory behavior** | Guaranteed memory                    | OOMKilled if exceeded              |
+| **Best practice**   | Set based on normal load             | Set 2× request as a starting point |
 
 #### QoS Classes (determined automatically from requests/limits)
 
-| Class | Condition | Eviction priority |
-|---|---|---|
-| **Guaranteed** | requests == limits for all containers | Last to be evicted |
-| **Burstable** | requests < limits (or only one set) | Middle priority |
-| **BestEffort** | No requests or limits set | First to be evicted |
+| Class          | Condition                             | Eviction priority   |
+| -------------- | ------------------------------------- | ------------------- |
+| **Guaranteed** | requests == limits for all containers | Last to be evicted  |
+| **Burstable**  | requests < limits (or only one set)   | Middle priority     |
+| **BestEffort** | No requests or limits set             | First to be evicted |
 
 Always set both requests and limits for production workloads to achieve **Guaranteed** or at minimum **Burstable** QoS.
 

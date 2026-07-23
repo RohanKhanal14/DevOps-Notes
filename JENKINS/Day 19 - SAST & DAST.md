@@ -28,16 +28,17 @@ Key characteristics:
 
 #### SonarQube Core Concepts
 
-| Concept | Description |
-|---|---|
-| **Rules** | Individual checks applied to code (e.g., "avoid SQL concatenation") |
-| **Issues** | Violations of rules found in the scanned code |
-| **Code Smells** | Maintainability problems that don't break functionality but increase technical debt |
-| **Bugs** | Code that is likely to behave incorrectly at runtime |
-| **Vulnerabilities** | Security weaknesses that could be exploited |
-| **Security Hotspots** | Code that requires manual review to determine if it's actually a vulnerability |
-| **Technical Debt** | Estimated time to fix all code smells |
-| **Coverage** | Percentage of code exercised by unit tests |
+| Concept               | Description                                                                         |
+| --------------------- | ----------------------------------------------------------------------------------- |
+| **Rules**             | Individual checks applied to code (e.g., "avoid SQL concatenation")                 |
+| **Issues**            | Violations of rules found in the scanned code                                       |
+| **Code Smells**       | Maintainability problems that don't break functionality but increase technical debt |
+| **Bugs**              | Code that is likely to behave incorrectly at runtime                                |
+| **Vulnerabilities**   | Security weaknesses that could be exploited                                         |
+| **Security Hotspots** | Code that requires manual review to determine if it's actually a vulnerability      |
+| **Technical Debt**    | Estimated time to fix all code smells                                               |
+| **Coverage**          | Percentage of code exercised by unit tests                                          |
+
 
 ---
 
@@ -120,37 +121,40 @@ Or via Maven/Gradle plugin, or directly in a Jenkinsfile stage.
 
 ```yaml
 # docker-compose.yml
-version: "3"
-
 services:
   sonarqube:
     image: sonarqube:community
     container_name: sonarqube
+    restart: unless-stopped
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://sonar-db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
     ports:
       - "9000:9000"
-    environment:
-      - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonar
-      - SONAR_JDBC_USERNAME=sonar
-      - SONAR_JDBC_PASSWORD=sonar
-    volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_logs:/opt/sonarqube/logs
     depends_on:
-      - db
-
-  db:
-    image: postgres:13
-    environment:
-      - POSTGRES_USER=sonar
-      - POSTGRES_PASSWORD=sonar
-      - POSTGRES_DB=sonar
+      - sonar-db
     volumes:
-      - postgresql_data:/var/lib/postgresql/data
+      - sonar-data:/opt/sonarqube/data
+      - sonar-extensions:/opt/sonarqube/extensions
+      - sonar-logs:/opt/sonarqube/logs
+
+  sonar-db:
+    image: postgres:15
+    container_name: sonar-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sonar
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    volumes:
+      - sonar-postgres:/var/lib/postgresql/data
 
 volumes:
-  sonarqube_data:
-  sonarqube_logs:
-  postgresql_data:
+  sonar-data:
+  sonar-extensions:
+  sonar-logs:
+  sonar-postgres:
 ```
 
 ```bash
@@ -282,14 +286,15 @@ const dbPassword = process.env.DB_PASSWORD;
 
 #### SAST vs DAST
 
-| Aspect | SAST | DAST |
-|---|---|---|
-| **When it runs** | Before deployment (source code) | After deployment (running app) |
-| **What it needs** | Source code | A running application URL |
-| **What it finds** | Code-level vulnerabilities | Runtime/behavioral vulnerabilities |
-| **False positives** | Higher (no runtime context) | Lower (real HTTP traffic) |
-| **Pipeline stage** | Build / test stage | After deploy-to-test stage |
-| **Examples** | SonarQube, Semgrep, Checkmarx | OWASP ZAP, Burp Suite |
+| Aspect              | SAST                            | DAST                               |
+| ------------------- | ------------------------------- | ---------------------------------- |
+| **When it runs**    | Before deployment (source code) | After deployment (running app)     |
+| **What it needs**   | Source code                     | A running application URL          |
+| **What it finds**   | Code-level vulnerabilities      | Runtime/behavioral vulnerabilities |
+| **False positives** | Higher (no runtime context)     | Lower (real HTTP traffic)          |
+| **Pipeline stage**  | Build / test stage              | After deploy-to-test stage         |
+| **Examples**        | SonarQube, Semgrep, Checkmarx   | OWASP ZAP, Burp Suite              |
+
 
 Use **both** — SAST for early feedback, DAST for runtime validation.
 
@@ -297,11 +302,12 @@ Use **both** — SAST for early feedback, DAST for runtime validation.
 
 #### OWASP ZAP Modes
 
-| Mode | Description | Use Case |
-|---|---|---|
-| **Baseline Scan** | Passive scan only — no active attacks | Quick check in CI/CD, safe for production-like envs |
-| **Full Scan** | Passive + active attacks | Thorough testing in isolated test environments |
-| **API Scan** | Targets REST/GraphQL/SOAP APIs using an OpenAPI/Swagger spec | API-focused pipelines |
+| Mode              | Description                                                  | Use Case                                            |
+| ----------------- | ------------------------------------------------------------ | --------------------------------------------------- |
+| **Baseline Scan** | Passive scan only — no active attacks                        | Quick check in CI/CD, safe for production-like envs |
+| **Full Scan**     | Passive + active attacks                                     | Thorough testing in isolated test environments      |
+| **API Scan**      | Targets REST/GraphQL/SOAP APIs using an OpenAPI/Swagger spec | API-focused pipelines                               |
+
 
 ```bash
 # Baseline scan (passive only)

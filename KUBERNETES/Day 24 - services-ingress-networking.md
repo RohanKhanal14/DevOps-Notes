@@ -4,6 +4,9 @@
 
 ---
 
+This is a github repo that has all the codes of k8s : https://github.com/RohanKhanal14/three-tier-crud-app  
+
+Note : Make sure to use k8s branch cause the codes are in there.
 ## Theory
 
 ### The Problem Services Solve
@@ -161,12 +164,12 @@ curl http://127.0.0.1:80
 
 #### Service Type Comparison
 
-| Type | Reachable from | Use case |
-|---|---|---|
-| **ClusterIP** | Inside cluster only | Service-to-service communication |
-| **NodePort** | Node IP + port | Dev/testing, direct node access |
+| Type             | Reachable from               | Use case                                |
+| ---------------- | ---------------------------- | --------------------------------------- |
+| **ClusterIP**    | Inside cluster only          | Service-to-service communication        |
+| **NodePort**     | Node IP + port               | Dev/testing, direct node access         |
 | **LoadBalancer** | Public internet via cloud LB | Production on managed K8s (EKS/GKE/AKS) |
-| **ExternalName** | Inside cluster | Alias to an external DNS name |
+| **ExternalName** | Inside cluster               | Alias to an external DNS name           |
 
 ---
 
@@ -217,7 +220,7 @@ Pod queries: "backend-svc"
 
 ### Ingress: Path-Based and Host-Based Routing
 
-A **LoadBalancer Service per app** is expensive — each one provisions a cloud load balancer with its own public IP. **Ingress** solves this with a single entry point for all HTTP/HTTPS traffic, routing to different services based on URL path or hostname.
+A **LoadBalancer Service per app** is expensive each one provisions a cloud load balancer with its own public IP. **Ingress** solves this with a single entry point for all HTTP/HTTPS traffic, routing to different services based on URL path or hostname.
 
 ```
 Internet
@@ -307,11 +310,11 @@ spec:
 
 #### pathType values
 
-| pathType | Behavior |
-|---|---|
-| `Exact` | Match the exact path only (`/api` does NOT match `/api/users`) |
-| `Prefix` | Match path and all sub-paths (`/api` matches `/api/users`, `/api/v2/...`) |
-| `ImplementationSpecific` | Behavior depends on the Ingress controller |
+| pathType                 | Behavior                                                                  |
+| ------------------------ | ------------------------------------------------------------------------- |
+| `Exact`                  | Match the exact path only (`/api` does NOT match `/api/users`)            |
+| `Prefix`                 | Match path and all sub-paths (`/api` matches `/api/users`, `/api/v2/...`) |
+| `ImplementationSpecific` | Behavior depends on the Ingress controller                                |
 
 ---
 

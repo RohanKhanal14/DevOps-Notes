@@ -10,15 +10,15 @@
 
 Running containers with plain Docker works for a single machine, but falls apart at scale. Kubernetes solves the operational problems that appear when you run many containers across many machines.
 
-| Problem (without K8s) | Kubernetes Solution |
-|---|---|
-| Container crashes, stays down | **Self-healing** — restarts failed containers automatically |
-| Traffic spike, need more instances | **Horizontal scaling** — adds/removes pods based on load |
-| Deploy new version = manual coordination | **Declarative management** — describe desired state; K8s reconciles |
-| Routing traffic to healthy containers | **Load balancing** — built-in service discovery and traffic distribution |
-| Secrets, config scattered across hosts | **ConfigMaps & Secrets** — centralized, injected at runtime |
-| Rolling out updates safely | **Rolling updates & rollbacks** — zero-downtime deployments |
-| Packing containers efficiently onto nodes | **Bin packing** — scheduler places workloads to maximize resource usage |
+| Problem (without K8s)                     | Kubernetes Solution                                                      |
+| ----------------------------------------- | ------------------------------------------------------------------------ |
+| Container crashes, stays down             | **Self-healing** — restarts failed containers automatically              |
+| Traffic spike, need more instances        | **Horizontal scaling** — adds/removes pods based on load                 |
+| Deploy new version = manual coordination  | **Declarative management** — describe desired state; K8s reconciles      |
+| Routing traffic to healthy containers     | **Load balancing** — built-in service discovery and traffic distribution |
+| Secrets, config scattered across hosts    | **ConfigMaps & Secrets** — centralized, injected at runtime              |
+| Rolling out updates safely                | **Rolling updates & rollbacks** — zero-downtime deployments              |
+| Packing containers efficiently onto nodes | **Bin packing** — scheduler places workloads to maximize resource usage  |
 
 **The core idea:** you tell Kubernetes *what* you want (desired state), and it continuously works to make reality match that description. This is called the **reconciliation loop**.
 
@@ -189,7 +189,7 @@ kubectl get pods                        # Pods in current namespace
 kubectl get pods -n kube-system        # Pods in kube-system namespace
 kubectl get pods -A                    # Pods in ALL namespaces
 kubectl get pods -o wide               # Include node, IP
-kubectl get pods -o yaml               # Full YAML output
+kubectl get pods -o yaml z             # Full YAML output
 kubectl get pods -w                    # Watch (live updates)
 kubectl get all                        # Pods, services, deployments, etc.
 
@@ -270,20 +270,20 @@ spec:                      # Desired state (varies per kind)
 
 **`apiVersion` reference for common kinds:**
 
-| Kind | apiVersion |
-|---|---|
-| Pod | `v1` |
-| Service | `v1` |
-| ConfigMap | `v1` |
-| Secret | `v1` |
-| Namespace | `v1` |
-| Deployment | `apps/v1` |
-| StatefulSet | `apps/v1` |
-| DaemonSet | `apps/v1` |
-| Job | `batch/v1` |
-| CronJob | `batch/v1` |
-| Ingress | `networking.k8s.io/v1` |
-| HorizontalPodAutoscaler | `autoscaling/v2` |
+| Kind                    | apiVersion             |
+| ----------------------- | ---------------------- |
+| Pod                     | `v1`                   |
+| Service                 | `v1`                   |
+| ConfigMap               | `v1`                   |
+| Secret                  | `v1`                   |
+| Namespace               | `v1`                   |
+| Deployment              | `apps/v1`              |
+| StatefulSet             | `apps/v1`              |
+| DaemonSet               | `apps/v1`              |
+| Job                     | `batch/v1`             |
+| CronJob                 | `batch/v1`             |
+| Ingress                 | `networking.k8s.io/v1` |
+| HorizontalPodAutoscaler | `autoscaling/v2`       |
 
 ---
 
