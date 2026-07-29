@@ -10,24 +10,24 @@ Your uploaded Day 29 project already follows a strong DevSecOps base: Jenkins, S
 
 For production, I recommend this split:
 
-| Layer                         | Tool / AWS Service                                                            | Purpose                                                        |
-| ----------------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| Source control                | GitHub                                                                        | Application repo and GitOps repo                               |
-| CI orchestrator               | Jenkins controller + SSH/build agents                                         | Build, test, scan, package, push image, update GitOps repo     |
-| SAST                          | SonarQube                                                                     | Code quality, vulnerabilities, bugs, security hotspots         |
-| Dependency/container/IaC scan | Trivy                                                                         | Filesystem, image, secret, config, and Kubernetes/IaC scanning |
-| DAST                          | OWASP ZAP                                                                     | Runtime web/API security testing                               |
-| Image registry                | Amazon ECR preferred; Docker Hub for lab                                      | Private, IAM-integrated image storage                          |
-| Kubernetes                    | EKS for production; Minikube for local lab                                    | Container orchestration                                        |
-| CD/GitOps                     | Argo CD                                                                       | Pull-based deployment, drift detection, rollback               |
-| Packaging                     | Helm                                                                          | Environment-specific Kubernetes release management             |
-| Database                      | Amazon DocumentDB / MongoDB Atlas for production; MongoDB StatefulSet for lab | Persistent database tier                                       |
-| Monitoring                    | Prometheus + Grafana                                                          | Metrics, dashboards, alerts                                    |
-| Logging                       | Loki + Promtail / Grafana Alloy                                               | Centralized pod logs                                           |
-| Alerting                      | Alertmanager + Grafana alerts                                                 | Slack/email/on-call notifications                              |
-| Secrets                       | AWS Secrets Manager + External Secrets Operator                               | Secret rotation and no hardcoded credentials                   |
-| Ingress                       | AWS Load Balancer Controller + ALB                                            | HTTPS routing to frontend/backend                              |
-| DNS/TLS                       | Route 53 + ACM                                                                | Friendly domain and managed certificates                       |
+| Layer                         | Tool / AWS Service                                        | Purpose                                                        |
+| ----------------------------- | --------------------------------------------------------- | -------------------------------------------------------------- |
+| Source control                | GitHub                                                    | Application repo and GitOps repo                               |
+| CI orchestrator               | Jenkins controller + SSH/build agents                     | Build, test, scan, package, push image, update GitOps repo     |
+| SAST                          | SonarQube                                                 | Code quality, vulnerabilities, bugs, security hotspots         |
+| Dependency/container/IaC scan | Trivy                                                     | Filesystem, image, secret, config, and Kubernetes/IaC scanning |
+| DAST                          | OWASP ZAP                                                 | Runtime web/API security testing                               |
+| Image registry                | Docker Hub for lab                                        | Private, IAM-integrated image storage                          |
+| Kubernetes                    | Minikube for local lab                                    | Container orchestration                                        |
+| CD/GitOps                     | Argo CD                                                   | Pull-based deployment, drift detection, rollback               |
+| Packaging                     | Helm                                                      | Environment-specific Kubernetes release management             |
+| Database                      | MongoDB Atlas for production; MongoDB StatefulSet for lab | Persistent database tier                                       |
+| Monitoring                    | Prometheus + Grafana                                      | Metrics, dashboards, alerts                                    |
+| Logging                       | Loki + Promtail / Cloud Watch                             | Centralized pod logs                                           |
+| Alerting                      | Alertmanager + Grafana alerts / CW alarms                 | Slack/email/on-call notifications                              |
+| Secrets                       | AWS Secrets Manager + External Secrets Operator           | Secret rotation and no hardcoded credentials                   |
+| Ingress                       | Minikube Ingress                                          | HTTPS routing to frontend/backend                              |
+
 
 For production, Jenkins should **not directly deploy using `kubectl apply`**. Jenkins should build and validate artifacts, push images to ECR, update a GitOps repository, and then Argo CD should pull the desired state into Kubernetes. Argo CD is designed for declarative GitOps delivery where deployments track Git branches, tags, or specific commits, making Git the source of truth. ([Argo CD][1])
 
@@ -243,22 +243,12 @@ Because the controller holds sensitive configuration, credentials, job metadata,
 
 Use these AWS services for production:
 
-| AWS Service     | Purpose                                                  |
-| --------------- | -------------------------------------------------------- |
-| EC2             | Jenkins controller, Jenkins agent, SonarQube if VM-based |
-| IAM             | Jenkins agent role, EKS access, ECR permissions          |
-| ECR             | Private Docker image registry                            |
-| EKS             | Kubernetes cluster                                       |
-| VPC             | Network isolation                                        |
-| ALB             | Public HTTPS entry point                                 |
-| ACM             | TLS certificate                                          |
-| Route 53        | DNS                                                      |
-| Secrets Manager | Application/database secrets                             |
-| CloudWatch      | AWS-native logs/metrics backup                           |
-| DocumentDB      | Managed MongoDB-compatible database                      |
-| S3              | Jenkins backup, artifacts, Terraform state               |
-| KMS             | Encryption keys                                          |
-| SNS             | Alert routing if needed                                  |
+| AWS Service | Purpose                                                  |
+| ----------- | -------------------------------------------------------- |
+| EC2         | Jenkins controller, Jenkins agent, SonarQube if VM-based |
+| IAM         | Jenkins agent role                                       |
+| VPC         | Network isolation                                        |
+| CloudWatch  | AWS-native logs/metrics backup                           |
 
 ---
 
@@ -273,7 +263,7 @@ AMI: Ubuntu 24.04 LTS
 Instance type: t3.medium minimum, t3.large recommended
 Disk: 50 GB gp3
 Subnet: private subnet preferred
-Access: via VPN/bastion/SSM
+Access: via SSM
 ```
 
 For a lab, you can expose Jenkins on `8080` from your IP only. For production, put Jenkins behind an internal ALB with HTTPS.
@@ -298,14 +288,11 @@ sudo apt install -y fontconfig openjdk-21-jdk curl gnupg
 
 java -version
 
-sudo mkdir -p /usr/share/keyrings
-
-curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | \
-  sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
-
-echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | \
-  sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
-
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt update
 sudo apt install -y jenkins
 
@@ -390,39 +377,52 @@ sudo chmod 700 /home/jenkins/.ssh
 ## 9.4 Install Docker
 
 ```bash
-sudo apt remove docker docker-engine docker.io containerd runc -y || true
-sudo apt update
-sudo apt install -y ca-certificates curl gnupg
+sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc docker-buildx podman-docker containerd runc | cut -f1)
 
+# Add Docker's official GPG key:
+sudo apt update
+sudo apt install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-  sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+# Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
 
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
-  https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 sudo usermod -aG docker jenkins
 sudo systemctl enable docker
 sudo systemctl start docker
 ```
 
-## 9.5 Install Node.js 20 LTS
+## 9.5 Install Node.js 
 
 ```bash
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
+# Download and install nvm:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.6/install.sh | bash
 
-node -v
-npm -v
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+
+# Download and install Node.js:
+nvm install 24
+
+# Verify the Node.js version:
+node -v # Should print "v24.18.0".
+
+# Verify npm version:
+npm -v # Should print "11.16.0".
+
+sudo ln -s $(which node) /usr/local/bin/node
+sudo ln -s $(which npm) /usr/local/bin/npm
 ```
 
 ## 9.6 Install AWS CLI
@@ -440,7 +440,8 @@ aws --version
 For EKS, match the Kubernetes version.
 
 ```bash
-curl -LO "https://dl.k8s.io/release/v1.32.0/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
 chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 
@@ -457,13 +458,28 @@ helm version
 ## 9.9 Install Trivy
 
 ```bash
-wget https://github.com/aquasecurity/trivy/releases/download/v0.67.2/trivy_0.67.2_Linux-64bit.deb
-sudo dpkg -i trivy_0.67.2_Linux-64bit.deb
+sudo apt-get install wget gnupg
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy
 trivy --version
 ```
 
 Trivy is suitable here because it scans container images, filesystems, Git repositories, Kubernetes configurations, secrets, and misconfigurations. ([Trivy][4])
 
+## Install Sonar Scanner
+
+```bash
+cd /opt
+sudo wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-linux-x64.zip
+sudo apt install -y unzip   # if not already installed
+sudo unzip sonar-scanner-cli-6.2.1.4610-linux-x64.zip
+sudo mv sonar-scanner-6.2.1.4610-linux-x64 sonar-scanner
+
+
+sudo ln -s /opt/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
+```
 ---
 
 # 10. Connect Jenkins controller to agent
@@ -472,6 +488,7 @@ On Jenkins controller:
 
 ```bash
 sudo su - jenkins
+mkdir -p ~/.ssh
 ssh-keygen -t ed25519 -f ~/.ssh/jenkins-agent-key -C "jenkins-agent-access"
 cat ~/.ssh/jenkins-agent-key.pub
 ```
@@ -481,6 +498,9 @@ On Jenkins agent:
 ```bash
 sudo -i -u jenkins
 mkdir -p ~/.ssh
+
+# copy the public key from the controller to agent in this folder 
+
 vim ~/.ssh/authorized_keys
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
@@ -489,11 +509,16 @@ chmod 600 ~/.ssh/authorized_keys
 From controller:
 
 ```bash
-sudo -u jenkins ssh-keyscan <agent-private-ip> | \
+sudo -u jenkins ssh-keyscan <host_private_ip> | \
   sudo -u jenkins tee -a /var/lib/jenkins/.ssh/known_hosts
 
 sudo -u jenkins ssh -i /var/lib/jenkins/.ssh/jenkins-agent-key \
-  jenkins@<agent-private-ip> hostname
+  jenkins@<host_private_ip> hostname
+  
+  #use this to copy the key in base64
+  base64 -w 0 /var/lib/jenkins/.ssh/jenkins-agent-key
+  
+	echo "paste base64 code from above" | base64 -d
 ```
 
 In Jenkins UI:
@@ -540,10 +565,6 @@ Install Jenkins plugins:
 
 ```text
 SonarQube Scanner
-Pipeline
-Credentials Binding
-GitHub Branch Source
-Docker Pipeline
 ```
 
 In Jenkins:
@@ -1166,17 +1187,16 @@ kubectl create namespace argocd
 
 kubectl apply -n argocd \
   -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+  
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
+kubectl port-forward --address 0.0.0.0 svc/argocd-server -n argocd 8081:80 &
 ```
 
-Expose locally for testing:
-
 ```bash
-kubectl -n argocd port-forward svc/argocd-server 8080:443
-```
 
-Get initial password:
+# Get initial password:
 
-```bash
+
 kubectl -n argocd get secret argocd-initial-admin-secret \
   -o jsonpath="{.data.password}" | base64 -d
 echo
@@ -1695,7 +1715,7 @@ The kube-prometheus-stack Helm chart bundles Kubernetes monitoring manifests, Gr
 Access Grafana:
 
 ```bash
-kubectl -n monitoring port-forward svc/kube-prometheus-stack-grafana 3000:80
+kubectl port-forward --address 0.0.0.0 -n monitoring svc/kube-prometheus-stack-grafana 3000:80 &
 ```
 
 Open:

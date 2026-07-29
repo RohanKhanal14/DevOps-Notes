@@ -45,14 +45,7 @@ data:
     server.port=3000
     server.timeout=30s
     cache.ttl=300
-
-  nginx.conf: |
-    server {
-      listen 80;
-      location / {
-        proxy_pass http://localhost:3000;
-      }
-    }
+    
 ```
 
 **Method 2 — Imperative commands:**
@@ -349,11 +342,13 @@ spec:
 
 **Reclaim policies:**
 
-| Policy | Behavior after PVC deleted |
-|---|---|
-| `Retain` | PV kept, data intact, must be manually reclaimed |
-| `Delete` | PV and underlying storage deleted automatically |
+| Policy    | Behavior after PVC deleted                                    |
+| --------- | ------------------------------------------------------------- |
+| `Retain`  | PV kept, data intact, must be manually reclaimed              |
+| `Delete`  | PV and underlying storage deleted automatically               |
 | `Recycle` | Deprecated — basic scrub (`rm -rf`) then make available again |
+
+
 
 ---
 

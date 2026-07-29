@@ -105,13 +105,13 @@ If there is a difference, Argo CD marks the application as **OutOfSync** and can
 
 ### Main Components
 
-| Component | Purpose |
-|---|---|
-| API Server | Exposes Argo CD UI, CLI, and API |
-| Repository Server | Connects to Git repositories and renders manifests |
-| Application Controller | Compares desired state and actual cluster state |
-| Dex / SSO | Optional authentication integration |
-| Redis | Caching layer used by Argo CD |
+| Component              | Purpose                                            |
+| ---------------------- | -------------------------------------------------- |
+| API Server             | Exposes Argo CD UI, CLI, and API                   |
+| Repository Server      | Connects to Git repositories and renders manifests |
+| Application Controller | Compares desired state and actual cluster state    |
+| Dex / SSO              | Optional authentication integration                |
+| Redis                  | Caching layer used by Argo CD                      |
 
 ### Argo CD deployment flow
 
@@ -210,6 +210,10 @@ kubectl create namespace argocd
 ```bash
 kubectl apply -n argocd \
   -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Wait for pods to be ready (takes 2-3 minutes)
+kubectl -n argocd rollout status deployment/argocd-server
+kubectl get pods -n argocd
 ```
 
 ### Check Argo CD Pods
